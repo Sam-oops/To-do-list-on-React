@@ -4,7 +4,7 @@ import grid from '../assets/grid.svg'
 import NoteItem from './NoteItem';
 import clsx from 'clsx';
 
-export default function Cards({ notes, delNote, editNote }) {
+export default function Cards({ notes, delNote, changeNotes }) {
 
     const [view, setView] = useState(false);
 
@@ -22,7 +22,7 @@ export default function Cards({ notes, delNote, editNote }) {
                 </div>
                 <div className={changeList}>
                     {notes.map((note) => (
-                        <NoteItem editNote={editNote} delNote={delNote} note={note} view={view} key={note.id} />
+                        <NoteItem changeNotes={changeNotes} delNote={delNote} note={note} view={view} key={note.id} />
                     ))}
                 </div>
             </div>

@@ -1,7 +1,7 @@
 import React from 'react'
 import clsx from 'clsx'
 
-export default function NoteItem({note, view, delNote, editNote }) {
+export default function NoteItem({note, view, delNote, changeNotes }) {
 
   const changeWidth = clsx(`card__top`, { active: view })
 
@@ -13,7 +13,7 @@ export default function NoteItem({note, view, delNote, editNote }) {
       </div>
       <p className="card__text">{note.text}</p>
       <div className="card__btns">
-        <button className="btn edit" onClick={() => editNote(note.id)}>Редактировать</button>
+        <button className="btn edit" onClick={() => changeNotes(note)}>Редактировать</button>
         <button className="btn del" onClick={() => delNote(note.id)}>Удалить</button>
       </div>
     </div>

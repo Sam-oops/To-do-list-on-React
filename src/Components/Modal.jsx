@@ -1,8 +1,8 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
-export default function Modal({ openModal, close, add, setopenModal }) {
+export default function Modal({ openModal, close, add, descEditNote, editedNote }) {
 
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')
@@ -10,10 +10,13 @@ export default function Modal({ openModal, close, add, setopenModal }) {
     const hasTitle = clsx('modal__input', { hasTitle: title.trim() })
     const hasContent = clsx('modal__input', { hasContent: text.trim() })
 
+    const modalTitle = descEditNote ? "Изменить заметку" : "Добавить заметку"
+    const modalBtn = descEditNote ? "Изменить" : "Добавить"
+
     const addNote = () => {
         if (title.length >= 3 && text.length >= 3) {
             const note = {
-                id: crypto.randomUUID(),
+                id: editedNote ? editedNote.id : crypto.randomUUID(),
                 title,
                 text,
                 date: new Date().toLocaleDateString()
@@ -22,6 +25,17 @@ export default function Modal({ openModal, close, add, setopenModal }) {
             closeModal();
         }
     }
+
+    useEffect(() => {
+      if (editedNote && descEditNote) {
+        setTitle(editedNote.title)
+        setText(editedNote.text)
+      } else {
+        setTitle("")
+        setText("")
+      }
+    }, [editedNote, descEditNote])
+    
 
     const stop = (e) => {
         e.stopPropagation()
@@ -44,7 +58,7 @@ export default function Modal({ openModal, close, add, setopenModal }) {
                     animate={{ scale: 1, opacity: 1 }}
                     exit={{ scale: 0, opacity: 0 }}
                     >
-                        <h3 className="modal__title">Добавить заметку</h3>
+                        <h3 className="modal__title">{modalTitle}</h3>
                         <div className="modal__lables">
                             <label className='modal__label'>
                                 <input className={hasTitle} type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
@@ -57,7 +71,7 @@ export default function Modal({ openModal, close, add, setopenModal }) {
                         </div>
                         <div className="modal__btns">
                             <button className='btn del' onClick={closeModal}>Отмена</button>
-                            <button className='btn edit' onClick={addNote}>Добавить</button>
+                            <button className='btn edit' onClick={addNote}>{modalBtn}</button>
                         </div>
                     </motion.div>
                 </div>
