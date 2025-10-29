@@ -254,3 +254,24 @@ input {
   color: #6570a4;
   transition: 0.3s ease;
 }
+.nav__input {
+  width: 80%;
+  padding: 10px 0;
+}
+.nav__btn,
+.nav_search {
+  cursor: pointer;
+}
+.nav:nth-child(2) {
+  display: none;
+}
+.nav.active:first-child {
+  display: none;
+}
+.nav.active:nth-child(2) {
+  display: flex;
+}
+.lang {
+  font-size: 18px;
+  cursor: pointer;
+}

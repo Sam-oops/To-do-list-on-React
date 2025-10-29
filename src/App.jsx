@@ -9,6 +9,8 @@ export default function App() {
   const [openModal, setOpenModal] = useState(false)
   const [descEditNote, setDescEditNote] = useState(false)
   const [editedNote, setEditedNote] = useState(null)
+  const [searchText, setSearchText] = useState('')
+  const [activeSearch, setActiveSearch] = useState(false)
 
   const add = (note) => {
     if (editedNote) {
@@ -33,17 +35,21 @@ export default function App() {
 }
   
   const open = () => {
-    setEditedNote(null)
     setOpenModal(true)
     setDescEditNote(false)
+    setEditedNote(null)
   };
 
   const close = () => setOpenModal(false)
 
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchText.toLowerCase())
+    )
+
   return (
     <>
-      <Navbar />
-      <Cards changeNotes={changeNotes} notes={notes} delNote={delNote} />
+      <Navbar setActiveSearch={setActiveSearch} activeSearch={activeSearch} searchText={searchText} setSearchText={setSearchText} />
+      <Cards changeNotes={changeNotes} notes={filteredNotes} delNote={delNote} />
       <Modal editedNote={editedNote} descEditNote={descEditNote} openModal={openModal} close={close} add={add} />
       {!openModal && <button className="newModal" onClick={open}>
         <img src={edit} />

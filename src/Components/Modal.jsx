@@ -1,5 +1,6 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
+import { t } from 'i18next'
 import { useEffect, useState } from 'react'
 
 export default function Modal({ openModal, close, add, descEditNote, editedNote }) {
@@ -10,8 +11,8 @@ export default function Modal({ openModal, close, add, descEditNote, editedNote 
     const hasTitle = clsx('modal__input', { hasTitle: title.trim() })
     const hasContent = clsx('modal__input', { hasContent: text.trim() })
 
-    const modalTitle = descEditNote ? "Изменить заметку" : "Добавить заметку"
-    const modalBtn = descEditNote ? "Изменить" : "Добавить"
+    const modalTitle = descEditNote ? t("editNotes") : t("addNotes")
+    const modalBtn = descEditNote ? t("edit") : t("add")
 
     const addNote = () => {
         if (title.length >= 3 && text.length >= 3) {
@@ -62,15 +63,15 @@ export default function Modal({ openModal, close, add, descEditNote, editedNote 
                         <div className="modal__lables">
                             <label className='modal__label'>
                                 <input className={hasTitle} type="text" onChange={(e) => setTitle(e.target.value)} value={title} />
-                                <span className="modal__span">Title</span>
+                                <span className="modal__span">{t("title")}</span>
                             </label>
                             <label className='modal__label'>
                                 <input className={hasContent} type="text" onChange={(e) => setText(e.target.value)} value={text} />
-                                <span className="modal__span">Content</span>
+                                <span className="modal__span">{t("content")}</span>
                             </label>
                         </div>
                         <div className="modal__btns">
-                            <button className='btn del' onClick={closeModal}>Отмена</button>
+                            <button className='btn del' onClick={closeModal}>{t("cancel")}</button>
                             <button className='btn edit' onClick={addNote}>{modalBtn}</button>
                         </div>
                     </motion.div>
