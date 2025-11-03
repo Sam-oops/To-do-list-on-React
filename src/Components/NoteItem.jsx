@@ -1,8 +1,11 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+import { Context } from '../context/context'
 
-export default function NoteItem({note, view, delNote, changeNotes }) {
+export default function NoteItem({note, view }) {
+
+  const {delNote, changeNotes} = useContext(Context)
 
   const changeWidth = clsx(`card__top`, { active: view })
 

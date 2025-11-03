@@ -1,9 +1,12 @@
 import clsx from 'clsx'
 import { AnimatePresence, motion } from 'framer-motion'
 import { t } from 'i18next'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
+import { Context } from '../context/context'
 
-export default function Modal({ openModal, close, add, descEditNote, editedNote }) {
+export default function Modal() {
+
+    const {editedNote, descEditNote, openModal, close, add} = useContext(Context)
 
     const [title, setTitle] = useState('')
     const [text, setText] = useState('')

@@ -1,15 +1,19 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import list from '../assets/list.svg'
 import grid from '../assets/grid.svg'
 import NoteItem from './NoteItem';
 import clsx from 'clsx';
 import { useTranslation } from 'react-i18next'
+import { Context } from '../context/context';
 
-export default function Cards({ notes, delNote, changeNotes }) {
+export default function Cards() {
+
+    const { filteredNotes } = useContext(Context)
 
     const [view, setView] = useState(false);
     const { t } = useTranslation()
     const changeList = clsx(`cards__bottom`, { active: view })
+
 
     return (
         <div className="cards">
@@ -22,8 +26,11 @@ export default function Cards({ notes, delNote, changeNotes }) {
                     </button>
                 </div>
                 <div className={changeList}>
-                    {notes.map((note) => (
-                        <NoteItem changeNotes={changeNotes} delNote={delNote} note={note} view={view} key={note.id} />
+                    {filteredNotes.map((note) => (
+                        <NoteItem
+                            note={note}
+                            view={view}
+                            key={note.id} />
                     ))}
                 </div>
             </div>

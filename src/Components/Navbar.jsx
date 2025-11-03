@@ -1,12 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import search from '../assets/search_icon.svg'
 import back from '../assets/back.svg'
 import clear from '../assets/clear.svg'
 import clsx from 'clsx'
 import { useTranslation } from 'react-i18next'
+import { Context } from '../context/context'
 
 
-export default function Navbar({ searchText, setSearchText }) {
+export default function Navbar() {
+
+  const { searchText, setSearchText } = useContext(Context)
 
   const [navSearch, setNavSearch] = useState(false)
 
@@ -17,7 +20,7 @@ export default function Navbar({ searchText, setSearchText }) {
   const changeLang = () => {
 
     const newLang = i18n.language === 'ru' ? 'en' : 'ru'
-    
+
     i18n.changeLanguage(newLang)
 
     localStorage.setItem('lang', newLang)
