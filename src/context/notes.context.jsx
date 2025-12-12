@@ -3,7 +3,7 @@ import { Context } from "./context"
 
 export const NotesContextProvider = ({ children }) => {
 
-    const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes') || []))
+    const [notes, setNotes] = useState(JSON.parse(localStorage.getItem('notes') || '[]'))
     const [openModal, setOpenModal] = useState(false)
     const [descEditNote, setDescEditNote] = useState(false)
     const [searchText, setSearchText] = useState('')
